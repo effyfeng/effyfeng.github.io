@@ -1,0 +1,27 @@
+---
+// 单篇文章的外壳：标题、日期、tags，然后是正文。KaTeX 的样式只在这里加载
+import 'katex/dist/katex.min.css';
+import type { CollectionEntry } from 'astro:content';
+import Base from './Base.astro';
+import Tag from '../components/Tag.astro';
+import { formatDate } from '../lib/date';
+
+interface Props {
+  post: CollectionEntry<'notes'> | CollectionEntry<'journal'>;
+}
+const { post } = Astro.props;
+const { title, description, date, tags } = post.data;
+---
+
+<Base title={title} description={description}>
+  <article class="article">
+    <header class="article-header">
+      <h1>{title}</h1>
+      <div class="post-meta">
+        <time class="mono muted" datetime={date.toISOString()}>{formatDate(date)}</time>
+        {tags.map((t) => <Tag name={t} />)}
+      </div>
+    </header>
+    <slot />
+  </article>
+</Base>

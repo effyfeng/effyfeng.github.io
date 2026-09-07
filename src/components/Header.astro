@@ -1,0 +1,32 @@
+---
+const { pathname } = Astro.url;
+const nav = [
+  { href: '/notes/', label: 'Notes' },
+  { href: '/journal/', label: 'Journal' },
+];
+---
+
+<header class="site-header">
+  <a class="brand" href="/">Effy Feng</a>
+  <nav>
+    {nav.map(({ href, label }) => (
+      <a href={href} aria-current={pathname.startsWith(href) ? 'page' : undefined}>{label}</a>
+    ))}
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--sans);
+  }
+  .brand { font-weight: 700; text-decoration: none; letter-spacing: -0.01em; }
+  nav { display: flex; gap: 1.25rem; }
+  nav a { text-decoration: none; color: var(--muted); }
+  nav a:hover, nav a[aria-current="page"] { color: var(--fg); }
+</style>

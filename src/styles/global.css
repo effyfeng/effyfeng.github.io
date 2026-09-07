@@ -1,0 +1,76 @@
+/* 1. 配色只有黑白灰。深浅模式跟随系统 */
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #6b6b6b;
+  --line: #e6e6e6;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --serif: Georgia, "Times New Roman", serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f0f0f;
+    --fg: #e8e8e8;
+    --muted: #9a9a9a;
+    --line: #2a2a2a;
+  }
+}
+
+html { color-scheme: light dark; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 2. 一列版式，宽度固定，所有页面共用 */
+.wrap {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 5rem;
+}
+
+a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+
+h1, h2, h3 {
+  font-family: var(--sans);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 2.2rem 0 0.8rem;
+}
+h1 { font-size: 2rem; margin-top: 1rem; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1.1rem; }
+
+hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
+blockquote { margin: 1.5rem 0; padding-left: 1rem; border-left: 2px solid var(--line); color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.9em; }
+pre { padding: 1rem; overflow-x: auto; border-radius: 6px; font-size: 0.88rem; line-height: 1.5; }
+img { max-width: 100%; height: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--line); }
+
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); font-size: 0.85rem; }
+
+/* 3. 列表页 */
+.post-list { list-style: none; padding: 0; margin: 0; }
+.post-list li { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.post-list li:first-child { border-top: 1px solid var(--line); }
+.post-title { font-family: var(--sans); font-size: 1.15rem; font-weight: 600; text-decoration: none; }
+.post-title:hover { text-decoration: underline; }
+.post-meta { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; margin-top: 0.3rem; }
+.tag { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); text-decoration: none; }
+.tag::before { content: "#"; }
+.tag:hover { color: var(--fg); }
+
+/* 4. 详情页 */
+.article-header { margin-bottom: 2rem; }
+.article-header h1 { margin-bottom: 0.4rem; }
+.article :is(h2, h3) a { text-decoration: none; }
