@@ -1,26 +1,43 @@
-/* 1. 配色只有黑白灰。深浅模式跟随系统 */
+/* 1. 配色：Galliano 2004 埃及系列的剪纸拼贴。品红、天蓝、珊瑚、柠檬黄，黑色眼线，红唇 */
 :root {
-  --bg: #ffffff;
-  --fg: #111111;
-  --muted: #6b6b6b;
-  --line: #e6e6e6;
-  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --c-pink: #ec9fdd;
+  --c-lilac: #c9a3f0;
+  --c-sky: #7cc6f2;
+  --c-peach: #f6b99a;
+  --c-coral: #f0715a;
+  --c-orange: #f39a2c;
+  --c-lemon: #f5dc4a;
+  --c-green: #4f8a3c;
+  --c-kohl: #141014;
+  --c-lip: #e2231a;
+
+  --paper: #fff7ea;
+  --fg: #1a1418;
+  --muted: #6e5a62;
+  --line: #e9d6c6;
+  --edge: var(--c-kohl);
+  --shadow: var(--c-sky);
+
+  --display: "Limelight", "Didot", Georgia, serif;
+  --fashion: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
   --serif: Georgia, "Times New Roman", serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f0f0f;
-    --fg: #e8e8e8;
-    --muted: #9a9a9a;
-    --line: #2a2a2a;
+    --paper: #33285c;
+    --fg: #f6ecdc;
+    --muted: #c4b2c8;
+    --line: #4f4280;
+    --edge: #000000;
+    --shadow: var(--c-pink);
   }
 }
 
 html { color-scheme: light dark; }
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--c-pink);
   color: var(--fg);
   font-family: var(--serif);
   font-size: 17px;
@@ -28,56 +45,127 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* 2. 一列版式，宽度固定，所有页面共用 */
+/* 2. 一列版式：内容放在一张奶油色的纸上，黑边 + 错位的彩色阴影，像剪下来贴上去的 */
 .wrap {
+  position: relative;
   max-width: 42rem;
-  margin: 0 auto;
-  padding: 2rem 1.25rem 5rem;
+  margin: 3rem auto 4rem;
+  padding: 2rem 2.25rem 2.5rem;
+  background: var(--paper);
+  border: 3px solid var(--edge);
+  box-shadow: 12px 12px 0 var(--shadow), 12px 12px 0 3px var(--edge);
+}
+@media (max-width: 760px) {
+  .wrap {
+    margin: 1.25rem 16px 2.5rem;
+    padding: 1.5rem 1.25rem 2rem;
+    box-shadow: 7px 7px 0 var(--shadow), 7px 7px 0 3px var(--edge);
+  }
 }
 
-a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-a:hover { text-decoration-thickness: 2px; }
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--c-lip);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+a:hover { background: var(--c-lemon); color: var(--c-kohl); }
 
 h1, h2, h3 {
-  font-family: var(--sans);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  margin: 2.2rem 0 0.8rem;
+  line-height: 1.15;
+  margin: 2.4rem 0 0.8rem;
 }
-h1 { font-size: 2rem; margin-top: 1rem; }
-h2 { font-size: 1.35rem; }
-h3 { font-size: 1.1rem; }
+h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 2.4rem;
+  letter-spacing: 0.01em;
+  margin-top: 0.5rem;
+}
+h2 {
+  font-family: var(--fashion);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.55rem;
+}
+/* 二级标题后面贴一条彩纸 */
+h2::after {
+  content: "";
+  display: block;
+  width: 3.5rem;
+  height: 0.45rem;
+  margin-top: 0.35rem;
+  background: var(--c-coral);
+  clip-path: polygon(0 20%, 100% 0, 96% 100%, 3% 85%);
+}
+h2:nth-of-type(3n+2)::after { background: var(--c-sky); }
+h2:nth-of-type(3n)::after { background: var(--c-green); }
+h3 { font-family: var(--fashion); font-size: 1.2rem; }
 
-hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
-blockquote { margin: 1.5rem 0; padding-left: 1rem; border-left: 2px solid var(--line); color: var(--muted); }
+/* 分割线：一笔黑色眼线 */
+hr {
+  border: 0;
+  height: 10px;
+  margin: 2.5rem auto;
+  width: 60%;
+  background: var(--fg);
+  clip-path: polygon(0 60%, 70% 30%, 100% 0, 85% 70%, 40% 100%);
+}
+blockquote {
+  margin: 1.5rem 0;
+  padding: 0.25rem 0 0.25rem 1rem;
+  border-left: 5px solid var(--c-green);
+  font-style: italic;
+}
 code { font-family: var(--mono); font-size: 0.9em; }
-pre { padding: 1rem; overflow-x: auto; border-radius: 6px; font-size: 0.88rem; line-height: 1.5; }
+pre { padding: 1rem; overflow-x: auto; border: 2px solid var(--edge); font-size: 0.88rem; line-height: 1.5; }
 img { max-width: 100%; height: auto; }
 table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
 th, td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--line); }
+::selection { background: var(--c-pink); color: var(--c-kohl); }
 
 .muted { color: var(--muted); }
 .mono { font-family: var(--mono); font-size: 0.85rem; }
 
 /* 3. 列表页 */
 .post-list { list-style: none; padding: 0; margin: 0; }
-.post-list li { padding: 1rem 0; border-bottom: 1px solid var(--line); }
-.post-list li:first-child { border-top: 1px solid var(--line); }
-.post-title { font-family: var(--sans); font-size: 1.15rem; font-weight: 600; text-decoration: none; }
-.post-title:hover { text-decoration: underline; }
-.post-meta { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; margin-top: 0.3rem; }
-.tag { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); text-decoration: none; }
+.post-list li { padding: 1.1rem 0; border-bottom: 2px dashed var(--line); }
+.post-list li:last-child { border-bottom: 0; }
+.post-title {
+  font-family: var(--fashion);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.post-title:hover { background: none; color: var(--c-lip); }
+.post-meta { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-top: 0.35rem; }
+
+/* 标签：彩纸小块，轮流换颜色，略微歪一点 */
+.tag {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--c-kohl);
+  text-decoration: none;
+  padding: 0.05rem 0.45rem;
+  background: var(--c-lemon);
+  border: 1.5px solid var(--c-kohl);
+  transform: rotate(-2deg);
+}
+.tag:nth-of-type(3n+1) { background: var(--c-sky); transform: rotate(1.5deg); }
+.tag:nth-of-type(3n) { background: var(--c-pink); transform: rotate(-1deg); }
 .tag::before { content: "#"; }
-.tag:hover { color: var(--fg); }
+.tag:hover { background: var(--c-lip); color: #fff; }
 
 /* 4. 详情页 */
 .article-header { margin-bottom: 2rem; }
-.article-header h1 { margin-bottom: 0.4rem; }
+.article-header h1 { margin-bottom: 0.6rem; }
 .article :is(h2, h3) a { text-decoration: none; }
 
-/* 5. 文章里的图片：居中、上下留白、轻微圆角 */
+/* 5. 文章里的图片：像贴在纸上的照片，黑边 + 彩色错位阴影 */
 .article img {
   display: block;
-  margin: 1.75rem auto;
-  border-radius: 4px;
+  margin: 2rem auto;
+  border: 3px solid var(--edge);
+  box-shadow: 8px 8px 0 var(--c-coral);
 }
